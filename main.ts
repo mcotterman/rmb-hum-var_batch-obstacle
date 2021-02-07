@@ -347,12 +347,16 @@ basic.forever(function () {
     if(isRunning) {
         let g1r1p1 = parseInt(getRmbVar("g1r1p1"));
         if(previousg1r1p1 != g1r1p1) {
-            hummingbird.setPositionServo(FourPort.One,parseInt(getRmbVar("g1r1p1")));
+            hummingbird.setPositionServo(FourPort.One, g1r1p1);
             previousg1r1p1 = g1r1p1;
+            // basic.showNumber(g1r1p1);
         }
     } else {
         // Add any position cleanup for the stop state here
-        hummingbird.setRotationServo(FourPort.One, parseInt(getRmbVar("g1r1")));
+        if(previousg1r1p1 != 0) {
+            previousg1r1p1 = 0;
+            hummingbird.setRotationServo(FourPort.One, 0);
+        }
     }
     basic.pause(500);
 });
