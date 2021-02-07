@@ -347,7 +347,7 @@ basic.forever(function () {
     if(isRunning) {
         let g1r1p1 = parseInt(getRmbVar("g1r1p1"));
         if(previousg1r1p1 != g1r1p1) {
-            hummingbird.setPositionServo(FourPort.One, g1r1p1);
+            hummingbird.setRotationServo(FourPort.One, g1r1p1);
             previousg1r1p1 = g1r1p1;
             // basic.showNumber(g1r1p1);
         }
