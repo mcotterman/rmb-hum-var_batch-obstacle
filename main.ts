@@ -84,27 +84,10 @@ Allows RMB to set variables that can then be read by loops to update StringMap
 
 
 const rmbVars = [
-    {key:'g1t1p1-r',val:'0'},
-    {key:'g1t1p1-g',val:'0'},
-    {key:'g1t1p1-b',val:'0'},
-    {key:'g1bp1',val:'500'},
-    {key:'g1t1p2-r',val:'0'},
-    {key:'g1t1p2-g',val:'0'},
-    {key:'g1t1p2-b',val:'0'},
-    {key:'g1bp2',val:'500'},
-    {key:'g2t2p1-r',val:'0'},
-    {key:'g2t2p1-g',val:'0'},
-    {key:'g2t2p1-b',val:'0'},
-    {key:'g2bp1',val:'500'},
-    {key:'g2t2p2-r',val:'0'},
-    {key:'g2t2p2-g',val:'0'},
-    {key:'g2t2p2-b',val:'0'},
-    {key:'g2bp2',val:'500'},
-    {key:'g3p1p1',val:'0'},
-    {key:'g3bp1',val:'500'},
-    {key:'g3p1p2',val:'0'},
-    {key:'g3bp2',val:'500'},
+    {key:'g1r1p1',val:'0'}
 ];
+
+let previousg1r1p1 = -1;
 
 let isRunning = false;
 
@@ -362,13 +345,14 @@ input.onButtonPressed(Button.A, function () {
 
 basic.forever(function () {
     if(isRunning) {
-        hummingbird.setPositionServo(FourPort.One,parseInt(getRmbVar("g3p1p1")))
-        basic.pause(parseInt(getRmbVar("g3bp1")));
-        hummingbird.setPositionServo(FourPort.One,parseInt(getRmbVar("g3p1p2")))
-        basic.pause(parseInt(getRmbVar("g3bp2")));
+        let g1r1p1 = parseInt(getRmbVar("g1r1p1"));
+        if(previousg1r1p1 != g1r1p1) {
+            hummingbird.setPositionServo(FourPort.One,parseInt(getRmbVar("g1r1p1")));
+            previousg1r1p1 = g1r1p1;
+        }
     } else {
-        basic.pause(500);
         // Add any position cleanup for the stop state here
-        hummingbird.setRotationServo(FourPort.One, parseInt(getRmbVar("g1r1")))
+        hummingbird.setRotationServo(FourPort.One, parseInt(getRmbVar("g1r1")));
     }
-})
+    basic.pause(500);
+});
